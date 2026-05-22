@@ -1,7 +1,10 @@
 package bibliotecaInteligente.api.modules.user.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import org.hibernate.validator.constraints.br.CPF;
+
 import java.util.UUID;
 
 @Entity
@@ -10,11 +13,16 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User {
 
+    @Column(unique = true, nullable = false)
+    private String nome;
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @CPF
+    @NotBlank
+    @Column(unique = true, nullable = false)
+    private Integer cpf;
 
     @Column(unique = true, nullable = false)
     private String email;

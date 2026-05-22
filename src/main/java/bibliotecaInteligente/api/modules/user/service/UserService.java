@@ -44,6 +44,22 @@ public class UserService implements UserDetailsService {
                 new ArrayList<>()
         );
     }
+    public void deletarUserPorCpf(Integer cpf) {
+        repository.deleteById(cpf);
+    }
+    public void atualizarUserPorCpf(Integer cpf, User user) {
+        User userEntity = repository.findById(cpf).orElseThrow(() ->
+                new RuntimeException("Usuario não encontrado!"));
+
+        User userAtualizado = User.builder()
+                .nome(user.getNome() != null ? user.getNome() : userEntity.getNome())
+                .cpf(user.getCpf() != null ? user.getCpf() : userEntity.getCpf())
+                .email(user.getEmail() != null ? user.getEmail() : userEntity.getEmail())
+                .password(user.getPassword() != null ? user.getPassword() : userEntity.getPassword())
+                .build();
+
+        repository.saveAndFlush(userAtualizado);
+    }
 
 
 }
