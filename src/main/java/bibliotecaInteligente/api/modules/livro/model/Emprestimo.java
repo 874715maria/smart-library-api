@@ -1,4 +1,4 @@
-package bibliotecaInteligente.api.modules.user.model;
+package bibliotecaInteligente.api.modules.livro.model;
 
 import jakarta.persistence.*;
 import lombok.*;

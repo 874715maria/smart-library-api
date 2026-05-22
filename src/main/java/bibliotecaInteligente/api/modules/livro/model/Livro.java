@@ -1,10 +1,10 @@
-package bibliotecaInteligente.api.modules.user.model;
+package bibliotecaInteligente.api.modules.livro.model;
 
+import bibliotecaInteligente.api.modules.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "tb_livros")

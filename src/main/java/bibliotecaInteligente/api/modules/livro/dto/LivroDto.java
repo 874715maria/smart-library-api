@@ -1,6 +1,5 @@
-package bibliotecaInteligente.api.modules.user.dto;
+package bibliotecaInteligente.api.modules.livro.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
