@@ -19,7 +19,7 @@ public class LivroController {
     }
     @GetMapping
     public ResponseEntity<Livro> buscarLivroPorId(@RequestParam Integer id){
-        return ResponseEntity.ok(livroService.buscarPorId(id));
+        return ResponseEntity.ok(livroService.buscarLivroPorId(id));
     }
     @DeleteMapping
     public ResponseEntity<Void> deletarLivro(@RequestParam Integer id){

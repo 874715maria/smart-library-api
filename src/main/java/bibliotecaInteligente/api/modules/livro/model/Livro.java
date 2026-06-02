@@ -1,5 +1,6 @@
 package bibliotecaInteligente.api.modules.livro.model;
 
+import bibliotecaInteligente.api.modules.emprestimo.model.Emprestimo;
 import bibliotecaInteligente.api.modules.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;

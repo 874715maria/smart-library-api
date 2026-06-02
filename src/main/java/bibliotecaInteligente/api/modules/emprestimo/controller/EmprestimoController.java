@@ -1,35 +1,35 @@
-package bibliotecaInteligente.api.modules.livro.controller;
+package bibliotecaInteligente.api.modules.emprestimo.controller;
 
-import bibliotecaInteligente.api.modules.livro.model.Livro;
-import bibliotecaInteligente.api.modules.livro.service.LivroService;
+import bibliotecaInteligente.api.modules.emprestimo.model.Emprestimo;
+import bibliotecaInteligente.api.modules.emprestimo.service.EmprestimoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/livro")
+@RequestMapping("/emprestimo")
 @RequiredArgsConstructor
-public class LivroController {
-    private final LivroService livroService;
+public class EmprestimoController {
+    private final EmprestimoService emprestimoService;
 
     @PostMapping
-    public ResponseEntity<Void> salvarLivro(@RequestBody Livro livro){
-        livroService.salvarLivro(livro);
+    public ResponseEntity<Void> salvarEmprestimo(@RequestBody Emprestimo emprestimo){
+        emprestimoService.salvarEmprestimo(emprestimo);
         return ResponseEntity.ok().build();
     }
     @GetMapping
-    public ResponseEntity<Livro> buscarLivroPorId(@RequestParam Integer id){
-        return ResponseEntity.ok(livroService.buscarPorId(id));
+    public ResponseEntity<Emprestimo> buscarEmprestimoPorId(@RequestParam Integer id){
+        return ResponseEntity.ok(emprestimoService.buscarEmprestimoPorId(id));
     }
     @DeleteMapping
-    public ResponseEntity<Void> deletarLivro(@RequestParam Integer id){
-        livroService.deletarLivroPorId(id);
+    public ResponseEntity<Void> deletarEmprestimo(@RequestParam Integer id){
+        emprestimoService.deletarEmprestimoPorId(id);
         return ResponseEntity.ok().build();
     }
     @PutMapping
-    public ResponseEntity<Void> atualizarLivroPorId(@RequestParam Integer id,
-                                                    @RequestBody Livro livro){
-        livroService.atualizarLivroPorId(id, livro);
+    public ResponseEntity<Void> atualizarEmprestimoPorId(@RequestParam Integer id,
+                                                    @RequestBody Emprestimo emprestimo){
+        emprestimoService.atualizarEmprestimoPorId(id, emprestimo);
         return ResponseEntity.ok().build();
     }
 }
