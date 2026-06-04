@@ -1,6 +1,6 @@
-package bibliotecaInteligente.api.modules.livro.repository;
+package bibliotecaInteligente.api.modules.emprestimo.repository;
 
-import bibliotecaInteligente.api.modules.livro.model.Emprestimo;
+import bibliotecaInteligente.api.modules.emprestimo.model.Emprestimo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EmprestimoRpository extends JpaRepository<Emprestimo, Integer> {

@@ -2,7 +2,9 @@ package bibliotecaInteligente.api.modules.livro.service;
 
 import bibliotecaInteligente.api.modules.livro.model.Livro;
 import bibliotecaInteligente.api.modules.livro.repository.LivroRpository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class LivroService {
     private final LivroRpository livroRpository;
 
@@ -13,7 +15,7 @@ public class LivroService {
     public void salvarLivro(Livro livro) {
         livroRpository.save(livro);
     }
-    public Livro buscarPorId(Integer id) {
+    public Livro buscarLivroPorId(Integer id) {
         return livroRpository.findById(id).orElseThrow(
                 () -> new RuntimeException("Id não encontrado!")
         );
