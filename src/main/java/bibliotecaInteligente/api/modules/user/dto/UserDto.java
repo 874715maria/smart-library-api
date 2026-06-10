@@ -9,12 +9,12 @@ import lombok.Data;
 public class UserDto {
 
     @Schema(
-            description = "Email do usuário usado para login",
+            description = "Email ou cpf usuário usado para login",
             example = "usuario@email.com"
     )
-    @NotBlank(message = "O e-mail é obrigatório")
-    @Email(message = "E-mail inválido")
-    private String email;
+    @NotBlank(message = "O e-mail ou cpf é obrigatório")
+    @Email(message = "Login inválido")
+    private String login;
 
     @Schema(
             description = "Senha do usuário",
