@@ -22,12 +22,12 @@ public class UserService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     public void registerUser(UserDto dto){
-        if (repository.findByEmail(dto.getEmail()).isPresent()){
+        if (repository.findByEmail(dto.getLogin()).isPresent()){
             throw new RuntimeException("Email ja cadastrado");
         }
 
         User user = new User();
-        user.setEmail(dto.getEmail());
+        user.setEmail(dto.getLogin());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
 
         repository.save(user);
