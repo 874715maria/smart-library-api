@@ -16,7 +16,7 @@ import java.util.UUID;
 @Builder
 public class User {
 
-    @Column(unique = true, nullable = false)
+    @Column
     private String nome;
     @Id
     @CPF
