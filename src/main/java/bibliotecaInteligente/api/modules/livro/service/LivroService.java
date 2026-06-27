@@ -15,6 +15,9 @@ public class LivroService {
     public void salvarLivro(Livro livro) {
         livroRpository.save(livro);
     }
+    public List<Livro> listarLivros() {
+        return livroRepository.findAll();
+    }
     public Livro buscarLivroPorId(Integer id) {
         return livroRpository.findById(id).orElseThrow(
                 () -> new RuntimeException("Id não encontrado!")

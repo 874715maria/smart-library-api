@@ -18,16 +18,21 @@ public class EmprestimoController {
         return ResponseEntity.ok().build();
     }
     @GetMapping
-    public ResponseEntity<Emprestimo> buscarEmprestimoPorId(@RequestParam Integer id){
+    public ResponseEntity<List<Emprestimo>> listarEmprestimos(){
+        return ResponseEntity.ok(emprestimoService.listarEmprestimos());
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Emprestimo> buscarEmprestimoPorId(@PathVariable Integer id){
         return ResponseEntity.ok(emprestimoService.buscarEmprestimoPorId(id));
     }
-    @DeleteMapping
-    public ResponseEntity<Void> deletarEmprestimo(@RequestParam Integer id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarEmprestimo(@PathVariable Integer id){
         emprestimoService.deletarEmprestimoPorId(id);
         return ResponseEntity.ok().build();
     }
-    @PutMapping
-    public ResponseEntity<Void> atualizarEmprestimoPorId(@RequestParam Integer id,
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> atualizarEmprestimoPorId(@PathVariable Integer id,
                                                     @RequestBody Emprestimo emprestimo){
         emprestimoService.atualizarEmprestimoPorId(id, emprestimo);
         return ResponseEntity.ok().build();

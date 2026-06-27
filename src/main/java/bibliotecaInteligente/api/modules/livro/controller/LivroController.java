@@ -18,16 +18,21 @@ public class LivroController {
         return ResponseEntity.ok().build();
     }
     @GetMapping
-    public ResponseEntity<Livro> buscarLivroPorId(@RequestParam Integer id){
+    public ResponseEntity<List<Livro>> listarLivros(){
+        return ResponseEntity.ok(livroService.listarLivros());
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Livro> buscarLivroPorId(@PathVariable Integer id){
         return ResponseEntity.ok(livroService.buscarLivroPorId(id));
     }
-    @DeleteMapping
-    public ResponseEntity<Void> deletarLivro(@RequestParam Integer id){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarLivro(@PathVariable Integer id){
         livroService.deletarLivroPorId(id);
         return ResponseEntity.ok().build();
     }
-    @PutMapping
-    public ResponseEntity<Void> atualizarLivroPorId(@RequestParam Integer id,
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> atualizarLivroPorId(@PathVariable Integer id,
                                                     @RequestBody Livro livro){
         livroService.atualizarLivroPorId(id, livro);
         return ResponseEntity.ok().build();
