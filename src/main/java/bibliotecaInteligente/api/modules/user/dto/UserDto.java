@@ -10,6 +10,9 @@ public class UserDto {
     @NotBlank(message = "O e-mail é obrigatório")
     @Email(message = "E-mail inválido")
     private String email;
+    @NotBlank(message = "O Cpf é obrigatório")
+    @Email(message = "Cpf inválido")
+    private String cpf;
     @NotBlank(message = "A senha é obrigatória")
     private String password;
 
