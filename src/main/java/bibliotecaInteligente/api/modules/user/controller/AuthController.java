@@ -50,6 +50,7 @@ public class AuthController {
         return ResponseEntity.ok("Usuario cadastrado com sucesso!");
     }
 
+
     @Operation(
             summary = "Autenticar usuário",
             description = """
@@ -66,7 +67,7 @@ public class AuthController {
     public ResponseEntity<String> login(@RequestBody @Valid UserDto dto, HttpServletRequest request){
         try{
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword())
+                    new UsernamePasswordAuthenticationToken(dto.getLogin(), dto.getPassword())
             );
 
             SecurityContext context = SecurityContextHolder.getContext();
