@@ -22,21 +22,22 @@ public class UserService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     public void registerUser(UserDto dto){
-        if (repository.findByEmail(dto.getLogin()).isPresent()){
+        if (repository.findByEmail(dto.getEmail()).isPresent()){
             throw new RuntimeException("Email ja cadastrado");
         }
 
         User user = new User();
-        user.setEmail(dto.getLogin());
+        user.setsetCpf(userDto.getCpf());
+        user.setEmail(dto.getEmail());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
 
         repository.save(user);
     }
 
     @Override
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException{
-        User user = repository.findByEmailOrCpf(login, login)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado"));
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
+        User user = repository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario nao encontrado"));
 
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
@@ -44,10 +45,10 @@ public class UserService implements UserDetailsService {
                 new ArrayList<>()
         );
     }
-    public void deletarUserPorCpf(Integer cpf) {
+    public void deletarUserPorCpf(String cpf) {
         repository.deleteById(cpf);
     }
-    public void atualizarUserPorCpf(Integer cpf, User user) {
+    public void atualizarUserPorCpf(String cpf, UserDto userdto) {
         User userEntity = repository.findById(cpf).orElseThrow(() ->
                 new RuntimeException("Usuario não encontrado!"));
 
@@ -55,10 +56,30 @@ public class UserService implements UserDetailsService {
                 .nome(user.getNome() != null ? user.getNome() : userEntity.getNome())
                 .cpf(user.getCpf() != null ? user.getCpf() : userEntity.getCpf())
                 .email(user.getEmail() != null ? user.getEmail() : userEntity.getEmail())
-                .password(user.getPassword() != null ? user.getPassword() : userEntity.getPassword())
                 .build();
-
+        
+        if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        }
         repository.saveAndFlush(userAtualizado);
+    }
+    public void bloquearUsuario(String cpf) {
+
+        User user = repository.findById(cpf)
+             .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        user.setBloqueado(true);
+
+        repository.save(user);
+    }
+    public void desbloquearUsuario(String cpf) {
+
+        User user = repository.findById(cpf)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        user.setBloqueado(false);
+
+        repository.save(user);
     }
 
 

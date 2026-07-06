@@ -15,6 +15,9 @@ public class EmprestimoService {
     public void salvarEmprestimo(Emprestimo emprestimo) {
         emprestimoRpository.save(emprestimo);
     }
+    public List<Emprestimo> listarEmprestimos() {
+        return emprestimoRpository.findAll();
+    }
     public Emprestimo buscarEmprestimoPorId(Integer id) {
         return emprestimoRpository.findById(id).orElseThrow(
                 () -> new RuntimeException("Id não encontrado!")

@@ -79,6 +79,24 @@ public class AuthController {
             return ResponseEntity.status(401).body("Credenciais Invalidas.");
         }
     }
+    @PutMapping("/{cpf}")
+    public ResponseEntity<Void> atualizarUsuario(
+            @PathVariable String cpf,
+            @RequestBody UserDto dto) {
+
+        userService.atualizarUsuario(cpf, dto);
+        return ResponseEntity.ok().build();
+    }
+    @PatchMapping("/{cpf}/bloquear")
+    public ResponseEntity<Void> bloquearUsuario(@PathVariable String cpf) {
+        userService.bloquearUsuario(cpf);
+        return ResponseEntity.ok().build();
+    }
+    @PatchMapping("/{cpf}/desbloquear")
+    public ResponseEntity<Void> desbloquearUsuario(@PathVariable String cpf) {
+        userService.desbloquearUsuario(cpf);
+        return ResponseEntity.ok().build();
+}
 
     @Operation(
             summary = "Encerrar sessão",
