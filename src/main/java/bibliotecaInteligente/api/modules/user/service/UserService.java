@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -27,6 +28,7 @@ public class UserService implements UserDetailsService {
         }
 
         User user = new User();
+        user.setNome(userdto.getNome());
         user.setCpf(userdto.getCpf());
         user.setEmail(userdto.getEmail());
         user.setPassword(passwordEncoder.encode(userdto.getPassword()));
@@ -70,6 +72,9 @@ public class UserService implements UserDetailsService {
         }
 
         repository.saveAndFlush(userEntity);
+    }
+    public List<User> listarUsuarios() {
+        return repository.findAll();
     }
     public void bloquearUsuario(String cpf) {
 

@@ -1,6 +1,7 @@
 package bibliotecaInteligente.api.modules.user.controller;
 
 import bibliotecaInteligente.api.modules.user.dto.UserDto;
+import bibliotecaInteligente.api.modules.user.model.User;
 import bibliotecaInteligente.api.modules.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -18,6 +19,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
+import java.util.List;
 
 @Tag(
         name = "Autenticação",
@@ -75,6 +78,10 @@ public class AuthController {
         } catch (AuthenticationException e) {
             return ResponseEntity.status(401).body("Credenciais Invalidas.");
         }
+    }
+    @GetMapping("/listar")
+    public ResponseEntity<List<User>> listarUsuarios() {
+        return ResponseEntity.ok(userService.listarUsuarios());
     }
     @PutMapping("/{cpf}")
     public ResponseEntity<Void> atualizarUsuario(
