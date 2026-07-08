@@ -4,6 +4,8 @@ import bibliotecaInteligente.api.modules.emprestimo.model.Emprestimo;
 import bibliotecaInteligente.api.modules.emprestimo.repository.EmprestimoRpository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EmprestimoService {
     private final EmprestimoRpository emprestimoRpository;
