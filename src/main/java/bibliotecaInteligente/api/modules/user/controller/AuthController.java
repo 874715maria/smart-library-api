@@ -13,10 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -67,7 +64,7 @@ public class AuthController {
     public ResponseEntity<String> login(@RequestBody @Valid UserDto dto, HttpServletRequest request){
         try{
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(dto.getLogin(), dto.getPassword())
+                    new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword())
             );
 
             SecurityContext context = SecurityContextHolder.getContext();
@@ -84,7 +81,7 @@ public class AuthController {
             @PathVariable String cpf,
             @RequestBody UserDto dto) {
 
-        userService.atualizarUsuario(cpf, dto);
+        userService.atualizarUserPorCpf(cpf, dto);
         return ResponseEntity.ok().build();
     }
     @PatchMapping("/{cpf}/bloquear")

@@ -21,15 +21,15 @@ public class UserService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void registerUser(UserDto dto){
-        if (repository.findByEmail(dto.getEmail()).isPresent()){
+    public void registerUser(UserDto userdto){
+        if (repository.findByEmail(userdto.getEmail()).isPresent()){
             throw new RuntimeException("Email ja cadastrado");
         }
 
         User user = new User();
-        user.setsetCpf(userDto.getCpf());
-        user.setEmail(dto.getEmail());
-        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setCpf(userdto.getCpf());
+        user.setEmail(userdto.getEmail());
+        user.setPassword(passwordEncoder.encode(userdto.getPassword()));
 
         repository.save(user);
     }
@@ -50,18 +50,26 @@ public class UserService implements UserDetailsService {
     }
     public void atualizarUserPorCpf(String cpf, UserDto userdto) {
         User userEntity = repository.findById(cpf).orElseThrow(() ->
-                new RuntimeException("Usuario não encontrado!"));
+                new RuntimeException("Usuário não encontrado!"));
 
-        User userAtualizado = User.builder()
-                .nome(user.getNome() != null ? user.getNome() : userEntity.getNome())
-                .cpf(user.getCpf() != null ? user.getCpf() : userEntity.getCpf())
-                .email(user.getEmail() != null ? user.getEmail() : userEntity.getEmail())
-                .build();
-        
-        if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
-        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        if (userdto.getNome() != null && !userdto.getNome().isBlank()) {
+            userEntity.setNome(userdto.getNome());
         }
-        repository.saveAndFlush(userAtualizado);
+
+        if (userdto.getEmail() != null && !userdto.getEmail().isBlank()) {
+            if (repository.findByEmail(userdto.getEmail()).isPresent()
+                    && !userdto.getEmail().equals(userEntity.getEmail())) {
+                throw new RuntimeException("Email já cadastrado");
+            }
+
+            userEntity.setEmail(userdto.getEmail());
+        }
+
+        if (userdto.getPassword() != null && !userdto.getPassword().isBlank()) {
+            userEntity.setPassword(passwordEncoder.encode(userdto.getPassword()));
+        }
+
+        repository.saveAndFlush(userEntity);
     }
     public void bloquearUsuario(String cpf) {
 

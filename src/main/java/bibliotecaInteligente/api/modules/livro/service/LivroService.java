@@ -4,30 +4,32 @@ import bibliotecaInteligente.api.modules.livro.model.Livro;
 import bibliotecaInteligente.api.modules.livro.repository.LivroRpository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LivroService {
-    private final LivroRpository livroRpository;
+    private final LivroRpository livroRepository;
 
     public LivroService(LivroRpository livroRpository) {
-        this.livroRpository = livroRpository;
+        this.livroRepository = livroRpository;
     }
 
     public void salvarLivro(Livro livro) {
-        livroRpository.save(livro);
+        livroRepository.save(livro);
     }
     public List<Livro> listarLivros() {
         return livroRepository.findAll();
     }
     public Livro buscarLivroPorId(Integer id) {
-        return livroRpository.findById(id).orElseThrow(
+        return livroRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Id não encontrado!")
         );
     }
     public void deletarLivroPorId(Integer id) {
-        livroRpository.deleteById(id);
+        livroRepository.deleteById(id);
     }
     public void atualizarLivroPorId(Integer id, Livro livro) {
-        Livro livroEntity = livroRpository.findById(id).orElseThrow(() ->
+        Livro livroEntity = livroRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Livro não encontrado!"));
 
         Livro livroAtualizado = Livro.builder()
@@ -37,6 +39,6 @@ public class LivroService {
                 .descricao(livro.getDescricao() != null ? livro.getDescricao() : livroEntity.getDescricao())
                 .build();
 
-        livroRpository.saveAndFlush(livroAtualizado);
+        livroRepository.saveAndFlush(livroAtualizado);
     }
 }
